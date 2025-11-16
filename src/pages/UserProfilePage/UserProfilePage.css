@@ -1,0 +1,283 @@
+/* --- CSS for Monochromatic Pop Profile Page --- */
+
+/* Remember to ensure your CSS variables are set in :root */
+/* Example: --primary-color: #008080; --primary-dark: #006666; etc. */
+
+.profile-page-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--white); 
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden; 
+}
+
+.profile-banner {
+    height: 200px;
+    background-color: var(--primary-light); 
+    background-size: cover;
+    background-position: center;
+}
+
+.profile-header-area {
+    padding: 0 3rem 1rem 3rem; 
+    border-bottom: 1px solid var(--border-color);
+}
+
+.profile-info-and-actions {
+    display: flex;
+    align-items: flex-start;
+    transform: translateY(-50px);
+    position: relative;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color); /* Teal ring */
+    box-shadow: 0 0 0 5px var(--white); 
+    margin-right: 2rem;
+    flex-shrink: 0;
+}
+
+.profile-details {
+    flex-grow: 1;
+    padding-top: 55px; 
+}
+
+.username {
+    color: var(--text-color);
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.user-bio, .stats {
+    color: var(--light-text);
+}
+.stats {
+    font-size: 14px;
+    display: flex;
+}
+.stat-item {
+    margin-right: 15px;
+}
+.stat-item strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.profile-action-btns {
+    padding-top: 55px; 
+    display: flex;
+    gap: 10px;
+}
+
+/* --- BUTTON STYLES --- */
+.profile-primary-btn {
+    background-color: var(--primary-color); /* SOLID TEAL */
+    color: var(--white);
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.profile-primary-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.profile-secondary-btn {
+    background: transparent;
+    color: var(--primary-color); /* TEAL OUTLINE */
+    border: 2px solid var(--primary-color);
+    padding: 8px 22px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.profile-secondary-btn:hover {
+    background-color: var(--primary-light); 
+}
+
+/* --- NAVIGATION TABS --- */
+.profile-nav-tabs-container {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 30px;
+}
+.profile-nav-tabs {
+    display: flex;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.profile-nav-tabs button {
+    background: none;
+    border: none;
+    padding: 15px 30px;
+    color: var(--light-text);
+    font-weight: 500;
+    cursor: pointer;
+    transition: color var(--transition);
+    position: relative;
+}
+.profile-nav-tabs button.active {
+    color: var(--primary-color); /* ACTIVE TEAL TEXT */
+    font-weight: 600;
+}
+.profile-nav-tabs button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-color); /* TEAL UNDERLINE */
+}
+
+/* --- CONTENT GRID --- */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 0 30px 30px;
+}
+.content-grid-item {
+    aspect-ratio: 1 / 1; 
+    overflow: hidden;
+    border-radius: 4px;
+    transition: box-shadow 0.3s ease;
+}
+.content-grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.content-grid-item:hover {
+    box-shadow: 0 0 0 3px var(--primary-color); /* TEAL BORDER on hover */
+    opacity: 0.95;
+    cursor: pointer;
+}
+
+/* ---------------------------------------------- */
+/* 🔑 MOBILE RESPONSIVE SECTION (FIXED SELECTORS) */
+/* ---------------------------------------------- */
+@media (max-width: 768px) {
+    /* Main container adapts to full width */
+    .profile-page-container {
+        border-radius: 0;
+        box-shadow: none;
+        max-width: 100%;
+    }
+    
+    /* Header area padding adjustment */
+    .profile-header-area {
+        padding: 0 1rem 1rem 1rem;
+    }
+    
+    /* Banner height reduction */
+    .profile-banner {
+        height: 120px;
+    }
+
+    /* Stack photo and details vertically */
+    .profile-info-and-actions {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transform: translateY(-40px);
+    }
+
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+        margin-right: 0;
+        margin-bottom: 10px;
+        /* Adjust box shadow for smaller size */
+        box-shadow: 0 0 0 4px var(--white);
+    }
+
+    .profile-details {
+        width: 100%;
+        padding-top: 10px;
+        order: 2; /* Move details below stats */
+    }
+    
+    /* Stats and Bio */
+    .username {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+    
+    .user-bio {
+        padding: 0 10px;
+        font-size: 14px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* Stats Row - Convert to stacked block with border separators */
+    .stats {
+        display: flex; 
+        justify-content: space-around;
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px 0;
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        order: 1; /* Move stats above bio */
+    }
+    .stat-item {
+        margin-right: 0;
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+    }
+    .stat-item strong {
+        font-size: 16px;
+    }
+
+    /* Action Buttons - Make them full width below the photo */
+    .profile-action-btns {
+        padding-top: 15px;
+        width: 90%;
+        margin-bottom: 15px;
+        order: 3;
+    }
+    .profile-primary-btn, .profile-secondary-btn {
+        flex-grow: 1;
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    /* Navigation Tabs */
+    .profile-nav-tabs-container {
+        margin-bottom: 15px;
+    }
+    .profile-nav-tabs {
+        width: 100%;
+        justify-content: space-around;
+    }
+    
+    /* Tabs: Use icon only for small screens */
+    .profile-nav-tabs button {
+        padding: 15px 10px;
+        font-size: 0; /* Hide text label */
+    }
+    .profile-nav-tabs button::before {
+        font-size: 18px; /* Ensure icon is visible */
+        content: attr(data-icon); /* If using FontAwesome, this needs JSX change */
+    }
+    
+    /* Content Grid */
+    .content-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        padding: 0 5px 5px;
+    }
+}

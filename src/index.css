@@ -1,0 +1,48 @@
+/* Base Styles - Monochromatic Pop (Teal Focus) */
+:root {
+    /* Primary Accent Colors (Teal Focus) */
+    --primary-color: #008080;         /* Main Teal */
+    --primary-light: #E0F0F0;         /* Very light teal background for active state */
+    --primary-dark: #006666;          /* Darker Teal for hover/active effects */
+    --secondary-color: #008080;       /* Keep secondary same as primary for monochromatic look */
+
+    /* Base Colors */
+    --text-color: #333333;           /* Dark Gray text */
+    --light-text: #666666;           /* Medium Gray text for subdued info */
+    --lighter-text: #808080;         /* Lighter Gray for placeholders/timestamps */
+    --border-color: #e0e0e0;         /* Light border for input fields/separation */
+    --background-color: #FAFAFA;     /* Very Light Gray/Off-White Base */
+    --white: #ffffff;
+    
+    /* Effects and Transitions */
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', 'Inter', sans-serif; /* Adding Inter as discussed */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.layout {
+    /* Assuming this layout wraps the entire application content */
+    display: flex;
+    min-height: 100vh; /* Use min-height to ensure it fills the page */
+    width: 100%; /* Ensure it spans horizontally */
+    background-color: var(--white); /* Inner content area is white, body is light gray */
+    box-shadow: var(--shadow); /* Optional shadow for main layout */
+    
+}
+

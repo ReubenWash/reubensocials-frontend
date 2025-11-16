@@ -1,0 +1,145 @@
+
+.logo-img {
+  width: 10vw;
+  min-width: 80px;
+  max-width: 200px;
+}
+
+
+.header-logo-sub {
+   font-style: italic;
+   font-family: cursive;
+   padding: 0 150px 12px ;
+   color:wheat;
+
+}
+
+.first-header{
+    font-size: 16px;
+    color: var(--light-text);
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+.login-container{
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 30px;
+    margin-top: 2px;
+    text-align: center;
+    position: relative;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.input-group{
+    position: relative;
+    text-align: left;
+}
+.input-group input{
+    width: 100%;
+    padding: 15px 15px 15px 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Roboto', Arial, sans-serif;
+    transition: var(--transition);
+}
+.input-group input::placeholder{
+    color: var(--light-text);
+
+}
+.toggle-password:hover{
+    color: var(--primary-color);
+}
+.remember-forget{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+}
+.remember-forget input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: (--primary-color);
+    cursor: pointer;
+}
+.remember-forget label {
+    font-size: 14px;
+    color: var(--light-text);
+    cursor: pointer;
+}
+.forgot-password {
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--primary-color);
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+}
+.btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+.register-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--light-text);
+}
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--lighter-text);
+}
+
+footer p {
+    margin-bottom: 10px;
+}
+footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px 2px;
+}
+
+footer a {
+    color: var(--lighter-text);
+    text-decoration: none;
+    transition: var(--transition);
+    padding: 0 5px;
+}
+
+footer a:hover {
+    color: var(--primary-color);
+}

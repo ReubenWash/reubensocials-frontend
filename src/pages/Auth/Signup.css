@@ -1,0 +1,108 @@
+/* Monochromatic Pop (Teal Focus) Styling for Auth Pages */
+
+.auth-container {
+    /* Use the background color from the root */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--background-color); /* #FAFAFA */
+}
+
+.auth-card {
+    /* Background remains white for high contrast card */
+    background: var(--white); 
+    padding: 2rem;
+    /* Slightly more rounded corners for the clean, soft look */
+    border-radius: 16px; 
+    width: 100%;
+    max-width: 400px;
+    /* Use the defined shadow variable */
+    box-shadow: var(--shadow); /* 0 4px 12px rgba(0, 0, 0, 0.08) */
+}
+
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    /* Use the primary text color */
+    color: var(--text-color); /* #333333 */
+    font-weight: 600; /* Recommended for headlines (Poppins Semi-Bold) */
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    /* Use a slightly darker gray for better hierarchy */
+    color: var(--text-color); /* #333333 */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px; /* Slightly more rounded than 6px */
+    /* Use the defined border color */
+    border: 1px solid var(--border-color); /* #e0e0e0 */
+    font-size: 15px;
+    /* Ensure input text is legible */
+    color: var(--text-color); 
+    transition: border-color var(--transition);
+}
+/* Focus state for inputs */
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color); /* Teal border on focus */
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    /* Use the primary teal color */
+    background-color: var(--primary-color); /* #008080 (Main Teal) */
+    color: var(--white);
+    border: none;
+    border-radius: 8px; /* Match input fields */
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background var(--transition);
+}
+
+.auth-btn:hover {
+    /* Use the primary dark teal color for hover */
+    background-color: var(--primary-dark); /* #006666 (Darker Teal) */
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 14px;
+}
+/* Styling for links in the footer (Forgot Password, Signup/Login) */
+.auth-footer a {
+    color: var(--primary-color); /* Teal link color */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition);
+}
+.auth-footer a:hover {
+    color: var(--primary-dark); /* Darker Teal on hover */
+    text-decoration: underline;
+}
+
+/* Error and Success (Using common web standards for these, but can be updated) */
+.error-message {
+    color: #cc4444; /* Standard red for error */
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    color: var(--primary-dark); /* Using dark teal/green for success */
+    text-align: center;
+    margin-bottom: 10px;
+}

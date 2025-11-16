@@ -1,0 +1,148 @@
+.explore-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.explore-modal {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 500px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.modal-body img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.modal-footer {
+  padding: 15px;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 15px;
+  font-size: 20px;
+  color: #333;
+}
+
+.icon {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.icon:hover {
+  color: #111;
+}
+
+.heart.liked {
+  color: #e63946;
+}
+
+.delete {
+  color: #e63946;
+}
+
+.likes-count {
+  font-weight: 500;
+  color: #333;
+}
+
+.comments-section {
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 14px;
+  color: #444;
+}
+
+.comment-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.comment-form input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.comment-form button {
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.comment-form button:hover {
+  background-color: #007acc;
+}
+
+.view-post-btn {
+  background-color: transparent;
+  color: #0095f6;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 8px;
+  align-self: flex-end;
+}
+
+.view-post-btn:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

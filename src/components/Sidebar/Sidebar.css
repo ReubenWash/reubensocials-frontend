@@ -1,0 +1,114 @@
+/* --- Sidebar.css - Rocials Monochromatic Pop Layout --- */
+
+.sidebar {
+    width: 240px;
+    
+    /* ❌ REMOVED: height: 100vh; (This caused the overlap and overflow) */
+    /* ❌ REMOVED: position: fixed; and top: 0; (This caused the overlap with the Topbar) */
+    
+    /* The layout is now managed by Home.css using flex and position: sticky */
+
+    display: none;
+    padding: 20px 0;
+    left: 0;
+    background-color: var(--white);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    /* Height is now 100% of the remaining space in home-container, as fixed in Home.css */
+}
+
+.sidebar-menu {
+    flex-grow: 1;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.sidebar-menu a:hover {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Teal Accent for Active Link */
+.sidebar-menu a.active {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 700;
+    border-right: 4px solid var(--primary-color);
+}
+
+/* 🆕 Font Awesome Icon Spacing */
+.nav-icon {
+    margin-right: 15px; 
+    width: 20px; 
+    text-align: center;
+}
+
+/* ❌ Removed redundant .sidebar-menu a span rule which was for emojis */
+/* .sidebar-menu a span { margin-right: 10px; } */
+
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.create-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    /* Uses the existing SOLID TEAL button style */
+}
+
+/* ---------------------------------------------- */
+/* 📱 MOBILE RESPONSIVE SECTION */
+/* ---------------------------------------------- */
+@media (max-width: 768px) {
+    .sidebar {
+        /* Correct: Hide the large desktop sidebar */
+        display: none;
+    }
+}
+/* -------------------------------------- */
+/* 🔴 Notification Badge Styling */
+/* -------------------------------------- */
+.icon-container {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+}
+
+.notif-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background-color: #ff3b30; /* red */
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 10px;
+  line-height: 1;
+  min-width: 16px;
+  text-align: center;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+/* Responsive tweak: make sure it aligns well in mobile */
+@media (max-width: 768px) {
+  .notif-badge {
+    top: -4px;
+    right: -6px;
+    font-size: 9px;
+    padding: 1px 4px;
+  }
+}

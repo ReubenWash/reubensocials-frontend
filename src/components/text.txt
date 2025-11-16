@@ -1,0 +1,13 @@
+Element,Font Recommendation,Weight & Style,Purpose
+"Primary Font (Body, Labels, Menus)",Inter or Open Sans,Regular to Medium,"Extremely readable and neutral, allowing the teal color to be the focus."
+"Secondary Font (Headlines, Branding)",Poppins or Montserrat,Semi-Bold or Bold,"More geometric and structured, used for titles like ""Home"" or ""Explore"" to provide a strong visual anchor."
+Color Scheme,- Text: Dark Gray (#333333) - Subdued Info: Medium Gray (#666666),,"This prevents the harshness of pure black, maintaining the smooth, cohesive look."
+
+
+teal hover and animation effects
+Area of Effect,Teal Application,Effect Description
+Buttons (Default),Solid Teal (#008080),"e.g., ""Follow"" button."
+Button (Hover),Darker Teal (#006666),Button slightly darkens or shifts down 1px to signal engagement.
+Navigation Items,Light Teal Background (#E0F0F0),"When ""Home"" is active, its background is a light teal wash, and the icon/text is the solid darker teal."
+Links/Text Hover,Teal Underline,"When hovering over a username or ""See All,"" a subtle 1px line of teal slides in beneath the text."
+Notifications,Solid Bright Teal (#00CCCC),"Use a brighter, more saturated shade of teal specifically for notification dots or high-priority badges to draw immediate attention."

@@ -1,0 +1,24 @@
+my website focuses on monochromatic pop(teal focus style)
+
+
+
+
+This is the final step to integrate the Settings page into your application and make it accessible from the Sidebar.
+
+I've created a single, runnable App.jsx file that includes:
+
+Full Routing Logic (using BrowserRouter, Routes, and Route).
+
+Your Sidebar component (updated to correctly use useLocation for active link highlighting).
+
+The new Settings page structure we designed.
+
+All necessary CSS (for the Monochromatic Pop theme, Sidebar, and Settings page layout, including mobile responsiveness).
+
+Now, when you run this code, you can click the Settings link in the sidebar to view the new two-column settings interface!
+Complete App with Home Feed and Modal
+6 Nov, 9:51 pm
+
+
+
+you are moving too fast lets us start from this side give me the codes little by little or you confuse me

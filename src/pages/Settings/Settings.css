@@ -1,0 +1,133 @@
+/* --- Settings.css - Rocials Monochromatic Pop Layout --- */
+
+.settings-page-container {
+    max-width: 1000px;
+    margin: 80px auto 40px; /* Clear Topbar */
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.settings-main-header {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-layout {
+    display: flex;
+    min-height: 500px;
+}
+
+/* --- 1. Navigation Panel (Left Column) --- */
+.settings-nav-panel {
+    flex-shrink: 0;
+    width: 250px;
+    padding-right: 20px;
+    border-right: 1px solid var(--border-color);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 10px;
+    margin-bottom: 5px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 16px;
+    color: var(--light-text);
+    cursor: pointer;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.nav-item .svg-inline--fa {
+    margin-right: 12px;
+    width: 18px;
+}
+
+.nav-item:hover {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* 🔑 TEAL FOCUS: Active Navigation Item */
+.nav-item.active {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 600;
+    /* Optional: Small teal vertical border for emphasis */
+    border-left: 4px solid var(--primary-color); 
+    padding-left: 6px;
+}
+
+/* Logout Button Special Styling */
+.logout-item {
+    margin-top: 20px;
+    color: var(--red); /* Assuming you have a --red variable */
+}
+.logout-item:hover {
+    background-color: var(--red-light);
+    color: var(--red-dark);
+}
+
+
+/* --- 2. Content Area (Right Column) --- */
+.settings-content-area {
+    flex-grow: 1;
+    padding-left: 30px;
+}
+
+.settings-content-placeholder h3 {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+.settings-content-placeholder p {
+    color: var(--light-text);
+}
+
+/* ---------------------------------------------- */
+/* 📱 MOBILE RESPONSIVE SECTION */
+/* ---------------------------------------------- */
+@media (max-width: 768px) {
+    .settings-page-container {
+        margin-top: 60px; /* Clear Topbar */
+        padding: 10px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    
+    .settings-main-header {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    
+    .settings-layout {
+        flex-direction: column; /* Stack navigation above content */
+    }
+
+    /* 🔑 Mobile Navigation: Hide the sidebar structure */
+    .settings-nav-panel {
+        display: none; 
+        width: 100%;
+        padding-right: 0;
+        border-right: none;
+    }
+    
+    /* 🔑 Mobile Content Area: Full width */
+    .settings-content-area {
+        padding-left: 0;
+        width: 100%;
+    }
+    
+    /* 🔑 Implement Mobile Dropdown (requires JSX update to replace .settings-nav-panel) */
+    /* If you implement a <select> element or a collapsible menu here,
+       it would take full width and show the current section title. */
+}

@@ -1,0 +1,126 @@
+/* --- Home.css - Rocials Monochromatic Pop Layout --- */
+
+.home {
+    background-color: var(--background-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* This correctly clears the fixed 60px Topbar */
+    padding-top: 60px;
+}
+
+/* Main container */
+.home-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%; 
+    overflow-y: auto;
+}
+
+/* Sidebar */
+.home .sidebar {
+    flex-shrink: 0;
+    flex: 0 0 250px;
+    border-right: 1px solid var(--border-color);
+    background-color: var(--white);
+    height: 100%;
+    overflow: hidden;
+    /* These are correct for desktop scrolling inside home-container */
+    position: sticky;
+    top: 0; 
+    z-index: 2;
+}
+
+/* Feed */
+.feed {
+    flex: 1;
+    background-color: var(--background-color);
+    /* Desktop padding */
+    padding: 20px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 100%;
+    overflow: visible;
+    overflow-y: auto;
+}
+
+/* Right Sidebar */
+.rightbar {
+    flex: 0 0 300px;
+    border-left: 1px solid var(--border-color);
+    background-color: var(--white);
+    height: 100%;
+    overflow: hidden;
+    /* These are correct for desktop scrolling inside home-container */
+    position: sticky;
+    top: 0; 
+    z-index: 2;
+}
+
+/* Scrollbar styling (unchanged) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--light-text);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-color);
+}
+
+/* ---------------------------------------------- */
+/* 📱 MOBILE RESPONSIVE SECTION FIX */
+/* ---------------------------------------------- */
+@media screen and (max-width: 768px) {
+    
+    /* 🔑 FIX 1: Add bottom padding to clear the upcoming fixed mobile nav (50px) */
+    .home {
+        padding-top: 60px;
+        padding-bottom: 50px; 
+        overflow-y: auto;
+    }
+    
+    .home-container {
+        flex-direction: column;
+        height: 100%; 
+        width: 100%;
+        margin: 0;
+    }
+
+    /* 🔑 FIX 2: Ensure sidebars are hidden, use !important to guarantee override */
+    .home .sidebar,
+    .rightbar {
+        display: none !important;
+    }
+
+    /* 🔑 FIX 3: Feed takes full width and removes desktop padding */
+    .feed {
+        flex: 1;
+        width: 100%;
+        max-width: 100%;
+        /* REMOVE all horizontal padding for edge-to-edge content */
+        padding: 0; 
+        margin: 0 auto;
+        background-color: var(--background-color);
+        overflow-y: visible; /* Let the main .home container handle scroll */
+        height: auto;
+    }
+
+    /* 🔑 FIX 4: Topbar must be fixed for mobile (Ensuring it's top-fixed is critical) */
+    .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+}

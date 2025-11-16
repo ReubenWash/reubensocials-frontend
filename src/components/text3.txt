@@ -1,0 +1,11 @@
+About the Project Rocials is a web-based platform where creators can showcase their work, and fans can explore exclusive content. It provides a seamless experience for both content sharing and discovery.
+
+features
+User Authentication (Sign up, Sign in)
+  Profile Customization  
+  Content Posting (Images, Videos, Text) 
+ Explore Trending Posts 
+ Secure Payments for Exclusive Content 
+  Real-Time Notifications 
+  Messaging System
+
