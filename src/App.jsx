@@ -1,15 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Login from "./pages/Auth/Login";
 import SignUp from "./pages/Auth/SignUp";
-import Home from "./pages/Home/Home"; // new import
+import Home from "./pages/Home/Home";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
-// Assuming the path is: /pages/UserProfilePage/UserProfilePage.jsx// new import
-import MessagingSystem from "./pages/Messages/MessagingSystem"; // new import
+
 import Settings from "./pages/Settings/Settings";
 import Explore from "./pages/Explore/Explore";
 import Payments from "./pages/Payments/Payments";
 import Search from "./pages/Search/Search";
+import Wallet from "./components/Wallet/Wallet";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"; // import your PrivateRoute
+import SinglePost from "./pages/SinglePost/SinglePost";
 import "./App.css";
 
 const App = () => {
@@ -23,27 +30,76 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
 
-        {/* Main layout route */}
-        <Route path="/home" element={<Home />} />
+        {/* Protected routes */}
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/:username"
+          element={
+            <ProtectedRoute>
+              <UserProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        
 
-        {/*  Dynamic Profile Route (Recommended) */}
-    <Route path="/user/:username" element={<UserProfilePage />} />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/wallet"
+          element={
+            <ProtectedRoute>
+              <Wallet />
+            </ProtectedRoute>
+          }
+        />
 
-       {/* Messaging Route */}
-<Route path="/messages" element={<MessagingSystem />} /> {/* <-- Add this route */}
-       
-       {/* 🔑 NEW ROUTE: Settings */}
-            <Route path="/settings" element={<Settings />} />
+        <Route
+          path="/post/:postId"
+          element={
+            <ProtectedRoute>
+              <SinglePost />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Explore Route */}
-        <Route path="/explore" element={<Explore />} />
+        <Route
+          path="/explore"
+          element={
+            <ProtectedRoute>
+              <Explore />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payments"
+          element={
+            <ProtectedRoute>
+              <Payments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute>
+              <Search />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Payments Route */}
-        <Route path="/payments" element={<Payments />} />
-
-        {/* Search Route */}
-        <Route path="/search" element={<Search />} />
-      
         {/* 404 fallback */}
         <Route
           path="*"
@@ -53,8 +109,6 @@ const App = () => {
             </h2>
           }
         />
-
-        
       </Routes>
     </Router>
   );

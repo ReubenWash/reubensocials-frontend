@@ -1,48 +1,326 @@
-/* Base Styles - Monochromatic Pop (Teal Focus) */
-:root {
-    /* Primary Accent Colors (Teal Focus) */
-    --primary-color: #008080;         /* Main Teal */
-    --primary-light: #E0F0F0;         /* Very light teal background for active state */
-    --primary-dark: #006666;          /* Darker Teal for hover/active effects */
-    --secondary-color: #008080;       /* Keep secondary same as primary for monochromatic look */
+/* ============================================
+   FILE 1: src/index.css (COMPLETE REPLACEMENT)
+   Instagram-Style Layout with Full Page Coverage
+   ============================================ */
 
-    /* Base Colors */
-    --text-color: #333333;           /* Dark Gray text */
-    --light-text: #666666;           /* Medium Gray text for subdued info */
-    --lighter-text: #808080;         /* Lighter Gray for placeholders/timestamps */
-    --border-color: #e0e0e0;         /* Light border for input fields/separation */
-    --background-color: #FAFAFA;     /* Very Light Gray/Off-White Base */
-    --white: #ffffff;
-    
-    /* Effects and Transitions */
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
-    --transition: all 0.3s ease;
+:root {
+  --primary-color: #008080;
+  --primary-light: #E0F0F0;
+  --primary-dark: #006666;
+  --text-color: #262626;
+  --secondary-text: #8e8e8e;
+  --border-color: #dbdbdb;
+  --background-color: #fafafa;
+  --white: #ffffff;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --hover-bg: rgba(0, 0, 0, 0.05);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 body {
-    font-family: 'Poppins', 'Inter', sans-serif; /* Adding Inter as discussed */
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-.layout {
-    /* Assuming this layout wraps the entire application content */
-    display: flex;
-    min-height: 100vh; /* Use min-height to ensure it fills the page */
-    width: 100%; /* Ensure it spans horizontally */
-    background-color: var(--white); /* Inner content area is white, body is light gray */
-    box-shadow: var(--shadow); /* Optional shadow for main layout */
-    
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
 }
 
+/* Remove any App-level centering */
+.App {
+  height: 100%;
+  width: 100%;
+}
+
+/* ============================================
+   Instagram-Style Main Layout
+   ============================================ */
+
+.main-layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Sidebar - Fixed on left */
+.main-sidebar {
+  width: 245px;
+  height: 100vh;
+  border-right: 1px solid var(--border-color);
+  background: var(--white);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Content Area - Takes remaining space */
+.main-content-area {
+  flex: 1;
+  margin-left: 245px;
+  margin-right: 320px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Rightbar - Fixed on right */
+.main-rightbar {
+  width: 320px;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background: var(--white);
+  border-left: 1px solid var(--border-color);
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* ============================================
+   Topbar - Always Visible in Desktop
+   ============================================ */
+
+.desktop-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--white);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar-left h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.topbar-right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.icon-button:hover {
+  background: var(--hover-bg);
+}
+
+.notification-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #ff3838;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* ============================================
+   Responsive Breakpoints
+   ============================================ */
+
+/* Tablet View */
+@media (max-width: 1200px) {
+  .main-rightbar {
+    display: none;
+  }
+  
+  .main-content-area {
+    margin-right: 0;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  .main-sidebar {
+    display: none;
+  }
+  
+  .main-content-area {
+    margin-left: 0;
+    margin-bottom: 60px;
+  }
+  
+  .desktop-topbar {
+    display: block;
+  }
+  
+  /* Mobile bottom nav will show */
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* ============================================
+   Feed Container
+   ============================================ */
+
+.feed-container {
+  max-width: 630px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* ============================================
+   Home Page Specific Styles
+   ============================================ */
+
+.home {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.home-feed {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* ============================================
+   Button Styles
+   ============================================ */
+
+.primary-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.primary-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.secondary-btn:hover {
+  background: var(--hover-bg);
+}
+
+/* ============================================
+   Card Styles
+   ============================================ */
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.text-center {
+  text-align: center;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.gap-20 {
+  gap: 20px;
+}

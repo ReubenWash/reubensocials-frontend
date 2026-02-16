@@ -21,13 +21,15 @@
     padding: 0 10px;
 }
 .login-container{
+    
     width: 100%;
     max-width: 420px;
     background-color: var(--white);
     border-radius: 12px;
     box-shadow: var(--shadow);
     padding: 30px;
-    margin-top: 2px;
+    margin:auto;
+    margin-top:0vw;
     text-align: center;
     position: relative;
 }

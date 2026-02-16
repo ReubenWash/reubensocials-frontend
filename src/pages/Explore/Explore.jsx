@@ -1,73 +1,136 @@
-// Explore.jsx
-
-import React, { useState } from "react";
-import "./Explore.css";
-import Topbar from "../../components/Topbar/Topbar";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import Rightbar from "../../components/Rightbar/Rightbar";
-import MobileNav from "../../components/MobileNav/MobileNav";
-import ExploreModal from "./ExploreModal"; // ✅ Import modal
-
-// ✅ Import sample images
-import explore1 from "../../assets/posts/swag.jpg";
-import explore2 from "../../assets/posts/swag1.jpg";
-import explore3 from "../../assets/posts/swag3.jpg";
-import explore4 from "../../assets/posts/swag.jpg";
-import explore5 from "../../assets/posts/swag1.jpg";
-import explore6 from "../../assets/posts/swag3.jpg";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Explore.css';
+import { getExplorePosts, getTrendingPosts } from '../../api/postsApi';
+import PostGridItem from '../../components/PostGrid/PostGridItem';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import Topbar from '../../components/Topbar/Topbar';
+import Rightbar from '../../components/Rightbar/Rightbar';
+import MobileNav from '../../components/MobileNav/MobileNav';
+import { getCurrentUser } from '../../api/authApi';
 
 const Explore = () => {
-  const [posts, setPosts] = useState([
-    { id: 1, image: explore1, user: "jenna" },
-    { id: 2, image: explore2, user: "mike" },
-    { id: 3, image: explore3, user: "sara" },
-    { id: 4, image: explore4, user: "joseph" },
-    { id: 5, image: explore5, user: "kevin" },
-    { id: 6, image: explore6, user: "rita" },
-  ]);
+  const [activeTab, setActiveTab] = useState('explore');
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
 
-  const [selectedPost, setSelectedPost] = useState(null);
+  // Load current user
+  useEffect(() => {
+    const loadCurrentUser = async () => {
+      try {
+        const userData = await getCurrentUser();
+        setCurrentUser(userData);
+      } catch (err) {
+        console.error('Error loading current user:', err);
+      }
+    };
+    loadCurrentUser();
+  }, []);
 
-  // ✅ Open modal when a post is clicked
-  const handlePostClick = (post) => setSelectedPost(post);
+  useEffect(() => {
+    loadPosts();
+  }, [activeTab]);
 
-  // ✅ Delete post
-  const handleDeletePost = (postId) => {
-    setPosts(posts.filter((post) => post.id !== postId));
-    setSelectedPost(null); // close modal after delete
+  const loadPosts = async () => {
+    try {
+      setLoading(true);
+      let data;
+      
+      if (activeTab === 'trending') {
+        data = await getTrendingPosts();
+      } else {
+        data = await getExplorePosts();
+      }
+      
+      // Convert to array if it's an object with results
+      const postsArray = Array.isArray(data) ? data : (data.results || []);
+      
+      // Filter out text-only posts - only show posts with media
+      const mediaPosts = postsArray.filter(post => {
+        // Keep only posts that have media_file or thumbnail
+        // And are either image or video type
+        return (post.media_file || post.thumbnail) && 
+               (post.post_type === 'image' || post.post_type === 'video');
+      });
+      
+      setPosts(mediaPosts);
+    } catch (err) {
+      console.error("Error loading posts:", err);
+      setPosts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePostClick = (postId) => {
+    navigate(`/post/${postId}`);
   };
 
   return (
-    <div className="explore-page">
-      <Topbar />
-      <div className="explore-container">
-        <Sidebar />
-        <div className="explore-feed">
-          <h2 className="explore-title">Explore</h2>
-          <div className="explore-grid">
-            {posts.map((post) => (
-              <div
-                key={post.id}
-                className="explore-item"
-                onClick={() => handlePostClick(post)}
+    <div className="main-layout">
+      {/* Sidebar */}
+      <Sidebar currentUser={currentUser} />
+
+      {/* Main Content */}
+      <div className="main-content-area">
+        <Topbar currentUser={currentUser} />
+        
+        <div className="explore-page">
+          <div className="explore-header">
+            <h2>Explore</h2>
+            <div className="explore-tabs">
+              <button 
+                className={activeTab === 'explore' ? 'active' : ''}
+                onClick={() => setActiveTab('explore')}
               >
-                <img src={post.image} alt={`Post ${post.id}`} />
-              </div>
-            ))}
+                For You
+              </button>
+              <button 
+                className={activeTab === 'trending' ? 'active' : ''}
+                onClick={() => setActiveTab('trending')}
+              >
+                🔥 Trending
+              </button>
+            </div>
           </div>
+
+          {loading ? (
+            <div className="explore-loading">
+              <div className="loading-spinner"></div>
+              <p>Loading amazing content...</p>
+            </div>
+          ) : posts.length === 0 ? (
+            <div className="explore-empty">
+              <div className="empty-icon">📸</div>
+              <h3>No media posts found</h3>
+              <p>Check back later for new photos and videos!</p>
+            </div>
+          ) : (
+            <div className="explore-grid">
+              {posts.map(post => (
+                <PostGridItem
+                  key={post.id}
+                  postUrl={post.media_file || post.thumbnail}
+                  altText={post.content}
+                  postId={post.id}
+                  likesCount={post.likes_count}
+                  commentsCount={post.comments_count}
+                  isExclusive={post.is_exclusive}
+                  mediaType={post.post_type}
+                  onClick={() => handlePostClick(post.id)}
+                />
+              ))}
+            </div>
+          )}
         </div>
-        <Rightbar />
       </div>
 
-      {/* ✅ Modal opens when selectedPost is not null */}
-      {selectedPost && (
-        <ExploreModal
-          post={selectedPost}
-          onClose={() => setSelectedPost(null)}
-          onDelete={handleDeletePost}
-        />
-      )}
+      {/* Rightbar */}
+      <Rightbar currentUser={currentUser} />
 
+      {/* Mobile Nav */}
       <MobileNav />
     </div>
   );

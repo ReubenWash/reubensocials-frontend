@@ -1,123 +1,266 @@
-/* --- Notification Panel Specific Styles (Monochromatic Pop) --- */
+/* ===================================
+   NOTIFICATION PANEL - FIXED Z-INDEX
+   =================================== */
 
-.notification-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Subtle transparency for the background when the panel is open */
-    background-color: rgba(0, 0, 0, 0.1); 
-    z-index: 1000;
+/* Overlay background */
+.notification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999; /* Higher than everything */
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.2s ease;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Notification Panel */
 .notification-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    max-width: 400px; /* Standard panel width */
-    height: 100%;
-    background-color: var(--white);
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    z-index: 1001;
-    /* Basic slide-in animation (requires state management for full animation) */
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 10000; /* Even higher than overlay */
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+  overflow: hidden;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
     transform: translateX(0);
-    transition: transform 0.3s ease; 
+  }
 }
 
-.panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid var(--border-color);
+/* Header */
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
-.panel-header h2 {
-    font-size: 18px;
-    color: var(--text-color);
-    font-weight: 700;
+
+.notification-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
 }
+
 .close-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: var(--light-text);
-    cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.2s;
 }
 
-.notification-list {
-    flex-grow: 1;
-    overflow-y: auto;
+.close-btn:hover {
+  color: #333;
 }
 
-/* --- Notification Item Styling --- */
+/* Notifications List */
+.notifications-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+
+/* Individual Notification Item */
 .notification-item {
-    display: flex;
-    padding: 15px 20px;
-    border-bottom: 1px solid var(--border-color);
-    cursor: pointer;
-    position: relative;
-    transition: background-color 0.2s;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
+
 .notification-item:hover {
-    background-color: var(--background-color); /* Light gray on hover */
+  background-color: #f9f9f9;
 }
 
 .notification-item.unread {
-    background-color: var(--primary-light); /* Light Teal background for unread */
+  background-color: #e0f0f0;
 }
 
-.unread-dot {
-    position: absolute;
-    top: 50%;
-    left: 8px;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--primary-color); /* Solid Teal dot */
+.notification-item.unread:hover {
+  background-color: #d0e8e8;
 }
 
-.notif-avatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background-color: var(--border-color); 
-    margin-right: 15px;
-    flex-shrink: 0;
+.notification-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
-.notif-content p {
-    margin: 0 0 4px 0;
-    font-size: 15px;
-    color: var(--text-color);
-    line-height: 1.3;
-}
-.notif-user {
-    font-weight: 600;
-}
-.notif-time {
-    color: var(--lighter-text);
-    font-size: 12px;
+.notification-content {
+  flex: 1;
+  min-width: 0;
 }
 
-.panel-footer {
-    padding: 15px 20px;
-    border-top: 1px solid var(--border-color);
-    text-align: center;
+.notification-text {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+  margin: 0 0 4px 0;
 }
 
-.mark-all-btn {
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    font-weight: 600;
-    cursor: pointer;
-    transition: color 0.2s;
+.notification-text strong {
+  font-weight: 600;
+  color: #008080;
 }
-.mark-all-btn:hover {
-    color: var(--primary-dark);
+
+.notification-time {
+  font-size: 12px;
+  color: #999;
+}
+
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #008080;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+/* Empty State */
+.notifications-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px 20px;
+  text-align: center;
+  color: #999;
+}
+
+.notifications-empty-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.notifications-empty p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Loading State */
+.notifications-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Mark all as read button */
+.mark-all-read-btn {
+  background: none;
+  border: none;
+  color: #008080;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.mark-all-read-btn:hover {
+  color: #006666;
+  text-decoration: underline;
+}
+
+/* Scrollbar styling */
+.notifications-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notifications-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.notifications-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.notifications-list::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* ===================================
+   RESPONSIVE - MOBILE
+   =================================== */
+
+@media screen and (max-width: 768px) {
+  .notification-panel {
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  .notification-header {
+    padding: 15px;
+  }
+  
+  .notification-header h2 {
+    font-size: 18px;
+  }
+  
+  .notification-item {
+    padding: 12px 15px;
+  }
+  
+  .notification-avatar {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Very small screens */
+@media screen and (max-width: 480px) {
+  .notification-avatar {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .notification-text {
+    font-size: 13px;
+  }
+  
+  .notification-time {
+    font-size: 11px;
+  }
 }

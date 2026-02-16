@@ -1,0 +1,38 @@
+.profile-pic-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.profile-pic-label {
+  color: var(--primary-color, #008080);
+  font-weight: 600;
+}
+
+.image-preview-box {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-box {
+  font-size: 12px;
+  color: #777;
+}
+
+.profile-file-input {
+  margin-top: 10px;
+}

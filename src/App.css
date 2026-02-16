@@ -1,12 +1,24 @@
+/* ====== APP LAYOUT STRUCTURE ====== */
 .app {
   display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--background-color);
 }
 
+/* ====== MAIN CONTENT AREA ====== */
 .main-content {
-  margin-left: 250px; /* space for sidebar */
-  padding: 20px;
   flex: 1;
+  padding: 20px;
+  min-height: 100vh;
+  overflow-y: auto;
+
+  /* Space for sidebar (desktop only) */
+  margin-left: 250px;
+  transition: all 0.3s ease;
 }
+
+/* ====== SCROLLBAR STYLING ====== */
 * {
   scrollbar-width: thin;
   scrollbar-color: #ccc transparent;
@@ -19,4 +31,12 @@
 *::-webkit-scrollbar-thumb {
   background-color: #ccc;
   border-radius: 10px;
+}
+
+/* ====== FIX: SIDEBAR COLLAPSE ON MOBILE ====== */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0; /* Sidebar becomes hidden or overlay */
+    padding: 15px;
+  }
 }

@@ -1,78 +1,154 @@
-// Sidebar.jsx
+// Sidebar.jsx - FIXED FOR MISSING USERNAME
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 
-// 🧩 Font Awesome Icons
+// Font Awesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
-  faSearch,
   faCompass,
-  faMessage,
-  faBell,
-  faUser,
+  faCrown,
+  faUserCircle,
   faCog,
-  faDollarSign,
+  faWallet,
   faPlus,
+  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Sidebar = ({ onOpenPostModal, onOpenNotifications }) => {
-  // Dummy unread notification count (later connect to backend)
-  const unreadCount = 3; // Example: 3 unread notifications
+const Sidebar = ({ onOpenPostModal, currentUser }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const navItems = [
-    { path: "/home", icon: faHome, label: "Home" },
-    { path: "/search", icon: faSearch, label: "Search" },
-    { path: "/explore", icon: faCompass, label: "Explore" },
-    { path: "/messages", icon: faMessage, label: "Messages" },
-    { path: "/notifications", icon: faBell, label: "Notifications" },
-    { path: "/user/:username", icon: faUser, label: "Profile" },
-    { path: "/payments", icon: faDollarSign, label: "Payments" },
-    { path: "/settings", icon: faCog, label: "Settings" },
-  ];
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
-  const isActive = (path) =>
-    path === window.location.pathname ? "active" : "";
+  const isActive = (path) => {
+    return location.pathname === path ? "active" : "";
+  };
+
+  // Get username from various possible locations in the user object
+  const getUsername = () => {
+    if (!currentUser) return null;
+    
+    // Check all possible locations for username
+    return (
+      currentUser.username ||
+      currentUser.user?.username ||
+      currentUser.email?.split('@')[0] || // Fallback to email prefix
+      currentUser.id?.toString() // Last resort: use user ID
+    );
+  };
+
+  // Handle profile click
+  const handleProfileClick = (e) => {
+    e.preventDefault();
+    
+    if (!currentUser) {
+      alert("Loading user data... Please wait a moment.");
+      return;
+    }
+
+    const username = getUsername();
+    
+    if (!username) {
+      console.error("Cannot find username in user object:", currentUser);
+      alert("Error: Cannot load profile. Please contact support or try logging in again.");
+      return;
+    }
+
+    console.log("Navigating to profile:", `/user/${username}`);
+    navigate(`/user/${username}`);
+  };
+
+  const username = getUsername();
 
   return (
     <div className="sidebar">
       <nav className="sidebar-menu">
-        {navItems.map((item) => {
-          const isNotification = item.label === "Notifications";
+        {/* Home */}
+        <Link to="/home" className={`sidebar-btn ${isActive("/home")}`}>
+          <div className="icon-container">
+            <FontAwesomeIcon icon={faHome} className="nav-icon" />
+          </div>
+          Home
+        </Link>
 
-          return (
-            <Link
-              key={item.path}
-              to={
-                isNotification
-                  ? "#"
-                  : item.path.includes(":")
-                  ? "/user/creatorname"
-                  : item.path
-              }
-              className={isActive(item.path)}
-              onClick={(e) => {
-                if (isNotification) {
-                  e.preventDefault();
-                  if (onOpenNotifications) onOpenNotifications();
-                }
-              }}
-            >
-              <div className="icon-container">
-                <FontAwesomeIcon icon={item.icon} className="nav-icon" />
-                {/* 🔴 Notification Badge */}
-                {isNotification && unreadCount > 0 && (
-                  <span className="notif-badge">
-                    {unreadCount > 9 ? "9+" : unreadCount}
-                  </span>
-                )}
-              </div>
-              {item.label}
-            </Link>
-          );
-        })}
+        {/* Explore */}
+        <Link to="/explore" className={`sidebar-btn ${isActive("/explore")}`}>
+          <div className="icon-container">
+            <FontAwesomeIcon icon={faCompass} className="nav-icon" />
+          </div>
+          Explore
+        </Link>
+
+        {/* Profile - FIXED */}
+        {currentUser && username ? (
+          <Link
+            to={`/user/${username}`}
+            className={`sidebar-btn ${isActive(`/user/${username}`)}`}
+          >
+            <div className="icon-container">
+              <FontAwesomeIcon icon={faUserCircle} className="nav-icon" />
+            </div>
+            Profile
+          </Link>
+        ) : (
+          <button 
+            className="sidebar-btn" 
+            onClick={handleProfileClick}
+            style={{
+              textAlign: 'left',
+              opacity: currentUser ? 1 : 0.5,
+              cursor: currentUser ? 'pointer' : 'not-allowed'
+            }}
+          >
+            <div className="icon-container">
+              <FontAwesomeIcon icon={faUserCircle} className="nav-icon" />
+            </div>
+            Profile {!currentUser && "(Loading...)"}
+          </button>
+        )}
+
+        {/* Upgrade to Pro */}
+        <button
+          className="sidebar-btn"
+          onClick={() => alert("Upgrade feature coming soon!")}
+        >
+          <div className="icon-container">
+            <FontAwesomeIcon icon={faCrown} className="nav-icon" />
+          </div>
+          Upgrade to Pro
+        </button>
+
+        {/* Wallet */}
+        <Link to="/wallet" className={`sidebar-btn ${isActive("/wallet")}`}>
+          <div className="icon-container">
+            <FontAwesomeIcon icon={faWallet} className="nav-icon" />
+          </div>
+          Wallet
+        </Link>
+
+        {/* Settings */}
+        <Link to="/settings" className={`sidebar-btn ${isActive("/settings")}`}>
+          <div className="icon-container">
+            <FontAwesomeIcon icon={faCog} className="nav-icon" />
+          </div>
+          Settings
+        </Link>
+
+        {/* Logout */}
+        <button className="sidebar-btn" onClick={handleLogout}>
+          <div className="icon-container">
+            <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" />
+          </div>
+          Logout
+        </button>
       </nav>
 
       <div className="sidebar-footer">

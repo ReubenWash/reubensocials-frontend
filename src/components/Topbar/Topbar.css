@@ -23,15 +23,22 @@
 }
 
 .topbar-logo {
-    height: 35px;
+    height: 59px;
     cursor: pointer;
+}
+.search-link {
+     flex:0vh;
+    display: flex;
+    justify-content:center;
+
 }
 
 /* Center section (Search Bar) */
 .topbar-center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+    
+    flex:0vh;
+    display:flex;
+    justify-content:center;
 }
 
 .search-input {
@@ -90,29 +97,29 @@
 /* ---------------------------------------------- */
 @media screen and (max-width: 768px) {
     .topbar {
-        height: 50px; /* Slightly shorter bar */
-        padding: 0 15px;
+        height: 60px; /* Slightly shorter bar */
+        padding: 0px 12px ;
     }
 
     /* Hide the search bar on small screens */
     .topbar-center {
-        display: none;
+        display:flexbox;
     }
 
     /* Center the logo in the available space */
     .topbar-left {
-        flex-grow: 1;
-        text-align: center;
+        flex-grow: 0.1;
+        text-align:center;
     }
     
     .topbar-logo {
-        height: 25px;
+        height: 59px;
     }
 
     .topbar-right {
-        gap: 15px;
+        gap: 20px;
     }
     .topbar-right .fa-home { 
-         display: none; 
+         display:none; 
     }
 }

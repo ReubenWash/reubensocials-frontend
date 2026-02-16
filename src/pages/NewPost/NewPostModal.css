@@ -1,166 +1,150 @@
-/* --- New Post Modal Styles (Monochromatic Pop) --- */
-
-/* Reusing .modal-backdrop from payment modal (or index.css) */
-
-.new-post-modal {
-    background-color: var(--white);
-    border-radius: 12px;
-    width: 100%;
-    max-width: 600px; /* Wider modal for content creation */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transform: scale(1);
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid var(--border-color);
-}
-.modal-header h2 {
-    font-size: 18px;
-    font-weight: 700;
-}
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: var(--light-text);
-    cursor: pointer;
-}
-
-.modal-content-area {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* 1. Media Upload Area */
-.media-upload-box {
-    border: 2px dashed var(--primary-light); /* Light teal dashed border */
-    border-radius: 10px;
-    padding: 40px 20px;
-    text-align: center;
-    background-color: var(--background-color); /* Light background */
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.media-upload-box:hover {
-    border-color: var(--primary-color); /* Solid teal on hover */
-    background-color: var(--white);
-}
-
-.upload-icon {
-    font-size: 48px;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-}
-.upload-label {
-    /* Reuses the style from the primary-teal-btn class */
-    display: inline-block;
-    padding: 8px 15px !important; 
-    margin-top: 15px;
-    border-radius: 20px !important; 
-    font-weight: 500 !important;
-}
-
-/* Uploaded Preview */
-.uploaded-preview {
+/* --- Fullscreen Backdrop --- */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    font-weight: 600;
-    color: var(--primary-dark);
-}
-.uploaded-preview .fa-check-circle {
-    color: var(--primary-color);
-    font-size: 20px;
+    z-index: 9999;
+    backdrop-filter: blur(3px);
 }
 
-
-/* 2. Caption Input */
-.caption-input {
+/* --- Modal Panel --- */
+.new-post-modal {
     width: 100%;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-size: 15px;
-    resize: vertical;
-}
-.caption-input:focus {
-    outline: none;
-    border-color: var(--primary-color);
+    max-width: 520px;
+    background: var(--white);
+    padding: 0;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    animation: popIn 0.25s ease-out;
+    overflow: hidden;
 }
 
-/* 3. Exclusivity Toggle */
-.exclusivity-toggle-group {
+/* Animation */
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- Header --- */
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 600;
-    color: var(--text-color);
-    position: relative;
-    padding: 5px 0;
+}
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+.close-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--light-text);
 }
 
-/* Price Input for Exclusive Content */
-.price-input {
+/* --- Form --- */
+.modal-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Textarea */
+.caption-input {
     width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    resize: vertical;
+    font-size: 15px;
+}
+.caption-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* File Upload */
+.file-upload-label {
+    background-color: var(--primary-light);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+/* Preview */
+.preview-container {
+    width: 100%;
+    max-height: 300px;
+    overflow: hidden;
+}
+.preview-container img,
+.preview-container video {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+/* Exclusive Section */
+.exclusive-section {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.exclusive-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+.price-input {
     padding: 10px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
-    font-size: 15px;
 }
 
-/* Toggle Switch Basic Styling */
-.toggle-slider {
-    width: 40px;
-    height: 20px;
-    background-color: var(--border-color);
-    border-radius: 10px;
-    position: relative;
-    transition: background-color 0.4s;
-}
-.toggle-slider::before {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: var(--white);
-    top: 2px;
-    left: 2px;
-    transition: transform 0.4s;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-}
-.toggle-slider.on {
-    background-color: var(--primary-color); /* Teal when ON */
-}
-.toggle-slider.on::before {
-    transform: translateX(20px);
-}
-
-
-/* --- Footer and Post Button --- */
-.modal-footer {
-    padding: 15px 20px;
-    border-top: 1px solid var(--border-color);
-}
-
-.post-submit-btn {
-    /* Full width, solid teal button */
+/* Submit Button */
+.submit-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 12px;
     width: 100%;
-    padding: 12px 20px;
     font-size: 16px;
-    /* Reuses primary-teal-btn styles */
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
 }
-.post-submit-btn:disabled {
+.submit-btn:disabled {
     background-color: var(--light-text);
     cursor: not-allowed;
+}
+
+/* Errors */
+.error-message {
+    text-align: center;
+    color: red;
+    font-weight: 600;
+    margin-bottom: -10px;
 }

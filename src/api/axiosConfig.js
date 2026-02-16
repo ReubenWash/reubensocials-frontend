@@ -1,23 +1,82 @@
 import axios from "axios";
 
-// Create axios instance
+const API_BASE_URL = "http://127.0.0.1:8000/api";
+
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/", // Your Django backend API
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Add JWT token to every request (if available)
+/* ---------- PUBLIC ENDPOINTS ---------- */
+const PUBLIC_ENDPOINTS = [
+  "/accounts/login/",
+  "/accounts/register/",
+  "/accounts/token/refresh/",
+];
+
+/* ---------- REQUEST INTERCEPTOR ---------- */
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("access"); // stored after login
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const isPublic = PUBLIC_ENDPOINTS.some((endpoint) =>
+      config.url?.includes(endpoint)
+    );
+
+    if (!isPublic) {
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
+
     return config;
   },
-  (error) => {
+  (error) => Promise.reject(error)
+);
+
+/* ---------- RESPONSE INTERCEPTOR ---------- */
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    const isPublic = PUBLIC_ENDPOINTS.some((endpoint) =>
+      originalRequest.url?.includes(endpoint)
+    );
+
+    if (
+      error.response?.status === 401 &&
+      !isPublic &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+
+      try {
+        const refreshToken = localStorage.getItem("refresh_token");
+        if (!refreshToken) throw new Error("No refresh token");
+
+        const refreshResponse = await axios.post(
+          `${API_BASE_URL}/accounts/token/refresh/`,
+          { refresh: refreshToken }
+        );
+
+        localStorage.setItem(
+          "access_token",
+          refreshResponse.data.access
+        );
+
+        originalRequest.headers.Authorization =
+          `Bearer ${refreshResponse.data.access}`;
+
+        return api(originalRequest);
+      } catch (refreshError) {
+        localStorage.clear();
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
+      }
+    }
+
     return Promise.reject(error);
   }
 );

@@ -1,16 +1,47 @@
-.post {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  width: 100%;
-  max-width: 500px;
+/* Base Styles - Monochromatic Pop (Teal Focus) */
+:root {
+  /* Primary Accent Colors (Teal Focus) */
+  --primary-color: #008080; /* Main Teal */
+  --primary-light: #e0f0f0; /* Very light teal background for active state */
+  --primary-dark: #006666; /* Darker Teal for hover/active effects */
+  --secondary-color: #008080; /* Keep secondary same as primary for monochromatic look */
+
+  /* Base Colors */
+  --text-color: #333333; /* Dark Gray text */
+  --light-text: #666666; /* Medium Gray text for subdued info */
+  --lighter-text: #808080; /* Lighter Gray for placeholders/timestamps */
+  --border-color: #e0e0e0; /* Light border for input fields/separation */
+  --background-color: #fafafa; /* Very Light Gray/Off-White Base */
+  --white: #ffffff;
+
+  /* Effects and Transitions */
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+  --transition: all 0.3s ease;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- 1. POST CONTAINER & STRUCTURE --- */
+.post {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  width: 100%;
+  max-width: 550px; /* Standard size for social media post feeds */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+}
+
+/* --- 2. HEADER (USER INFO & MENU) --- */
 .post-header {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 12px 15px;
 }
 
 .post-user-img {
@@ -19,51 +50,351 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
+  border: 2px solid var(--primary-color);
+}
+
+.post-user-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .post-username {
   font-weight: 600;
-  color: #333;
+  color: var(--text-color);
+  font-size: 15px;
 }
 
-.post-image img {
-  width: 100%;
-  display: block;
+.exclusive-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--primary-color);
+  background-color: var(--primary-light);
+  border-radius: 4px;
+  padding: 2px 5px;
+  margin-top: 2px;
+  display: inline-block;
 }
 
-.post-actions {
-  display: flex;
-  gap: 10px;
-  padding: 8px 12px;
-  font-size: 20px;
-  cursor: pointer;
+.owner-badge {
+  font-size: 12px;
+  color: var(--light-text);
+  font-weight: 400;
+  margin-left: 5px;
 }
 
-.post-actions button {
-  border: none;
+/* --- Menu Dropdown Styles (NEW) --- */
+.post-menu-container {
+  position: relative;
+}
+
+.post-menu-btn {
   background: none;
+  border: none;
+  color: var(--light-text);
+  font-size: 18px;
   cursor: pointer;
-  font-size: 20px;
-  transition: transform 0.2s;
+  padding: 5px;
+  transition: color 0.2s;
 }
 
-.post-actions button:hover {
-  transform: scale(1.2);
+.post-menu-btn:hover {
+  color: var(--text-color);
+}
+
+.post-dropdown-menu {
+  position: absolute;
+  top: 100%; /* Position below the button */
+  right: 0;
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 5px 0;
+  z-index: 20;
+  width: 180px;
+  margin-top: 5px;
+}
+
+.post-dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.post-dropdown-menu button:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* --- 3. MEDIA (IMAGE/VIDEO) & BLURRING --- */
+.post-media-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.post-image,
+.post-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+}
+
+/* Blurring Effect */
+.post-media-container.blurred .post-image,
+.post-media-container.blurred .post-video {
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.exclusive-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  text-align: center;
+}
+
+.exclusive-content {
+  color: var(--white);
+  padding: 20px;
+}
+
+.exclusive-content h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.exclusive-content p {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.purchase-access-btn,
+.login-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.purchase-access-btn {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.purchase-access-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.login-btn {
+  background-color: var(--white);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+/* --- 4. STATS & CAPTION --- */
+.post-stats {
+  padding: 8px 15px;
+  font-size: 12px;
+  color: var(--light-text);
+}
+.post-stats span:not(:last-child) {
+  margin-right: 15px;
 }
 
 .post-caption {
-  padding: 10px 15px 15px;
-  font-size: 15px;
-  color: #333;
+  padding: 0 15px 15px;
+  font-size: 14px;
+  color: var(--text-color);
+  line-height: 1.5;
 }
-/* --- Post.css (Add to the bottom of the file) --- */
-@media (max-width: 768px) {
-    .post {
-        width: 100%;
-        border-radius: 0; /* Remove rounded corners on posts for full screen edge-to-edge look */
-        margin-bottom: 0; /* Tighten up spacing between posts */
-        padding: 10px 0; /* Add small vertical padding if needed, remove horizontal padding */
-        border-left: none;
-        border-right: none;
-    }
+
+/* --- 5. ACTIONS (LIKE, COMMENT, SHARE) --- */
+.post-actions {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.action-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--light-text);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px; /* Added gap for icon/text separation */
+}
+
+.action-btn:hover:not(:disabled) {
+  background-color: var(--primary-light); /* Changed hover to primary light */
+  color: var(--primary-dark);
+}
+
+.action-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.action-btn.liked {
+  color: #ff69b4; /* Hot Pink for Like */
+}
+
+.action-btn:nth-child(2) {
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+/* --- 6. COMMENTS SECTION --- */
+.comments-section {
+  padding: 10px 15px 15px;
+}
+
+.comment {
+  display: flex;
+  margin-bottom: 8px;
+  font-size: 13px;
+  align-items: flex-start;
+}
+
+.comment-user-img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+}
+
+.comment-content {
+  line-height: 1.4;
+}
+
+.comment-content strong {
+  margin-right: 5px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.emoji-comment {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* --- 7. COMMENT FORM & EMOJI PICKER --- */
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  position: relative; /* Needed to anchor the emoji picker */
+}
+
+.comment-input-container {
+  flex-grow: 1;
+  display: flex;
+  background-color: var(--background-color);
+  border-radius: 20px;
+  padding: 5px 10px;
+  border: 1px solid var(--border-color);
+}
+
+.comment-input {
+  flex-grow: 1;
+  border: none;
+  background: transparent;
+  padding: 5px 0;
+  font-size: 14px;
+  outline: none;
+}
+
+.emoji-picker-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 5px;
+  transition: transform 0.2s;
+}
+
+.emoji-picker-btn:hover {
+  transform: scale(1.1);
+}
+
+.post-comment-btn {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 13px;
+}
+
+.post-comment-btn:disabled {
+  background-color: var(--light-text);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.post-comment-btn:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+}
+
+.emoji-picker {
+  position: absolute;
+  bottom: 50px; /* Position above the comment input */
+  right: 70px; /* Adjusted to be near the emoji button */
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 20;
+  width: 200px;
+}
+
+.emoji-option {
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 4px;
+}
+.emoji-option:hover {
+  background-color: var(--primary-light);
 }

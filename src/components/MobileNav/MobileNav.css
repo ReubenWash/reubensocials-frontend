@@ -1,9 +1,7 @@
 /* --- MobileNav.css --- */
 
 .mobile-nav-bar {
-    /* ❌ REDUNDANT/CONFLICTING RULE REMOVED: display: flex; was here */
-    
-    /* 🔑 FIX: This is the ONLY visibility rule outside the media query */
+    /* Global Default: Hidden on all screens (until media query overrides) */
     display: none; 
     
     /* Fixed positioning at the bottom */
@@ -19,22 +17,33 @@
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
     z-index: 990;
     
-    /* 🔑 FIX: Combined alignment and spacing rules */
+    /* Alignment rules for when it is displayed */
     justify-content: space-around;
     align-items: center;
 }
 
 /* ---------------------------------------------- */
-/* 🔑 MEDIA QUERY: SHOW THE BAR ONLY ON MOBILE */
+/* 🔑 MEDIA QUERY 1: SHOW THE BAR ONLY ON MOBILE */
 /* ---------------------------------------------- */
 @media screen and (max-width: 768px) {
     .mobile-nav-bar {
-        /* This rule now correctly overrides 'display: none' for mobile screens */
+        /* Override display: none for mobile screens */
         display: flex; 
     }
 }
 
-/* --- (Rest of your component styles are correct and unchanged) --- */
+/* ---------------------------------------------- */
+/* 🔑 MEDIA QUERY 2 (The Fix): EXPLICITLY HIDE ON DESKTOP */
+/* ---------------------------------------------- */
+@media screen and (min-width: 769px) {
+    .mobile-nav-bar {
+        /* This rule guarantees the hide on desktop, overriding any conflicting rules */
+        display: none !important; 
+    }
+}
+
+
+/* --- (Rest of your component styles) --- */
 
 .nav-link {
     display: flex;

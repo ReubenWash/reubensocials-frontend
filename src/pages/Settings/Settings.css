@@ -1,34 +1,77 @@
-/* --- Settings.css - Rocials Monochromatic Pop Layout --- */
+/* --- Global Variables (Ensure these are available) --- */
+:root {
+    --primary-color: #008080;        
+    --primary-light: #E0F0F0;        
+    --primary-dark: #006666;         
+    --text-color: #333333;           
+    --light-text: #666666;           
+    --background-color: #FAFAFA;     
+    --white: #ffffff;
+    --border-color: #e0e0e0;         
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    --transition: 0.3s ease;
+    --red: #e74c3c;                  
+    --red-light: #fcebeb;            
+    --red-dark: #c0392b;             
+}
 
+/* --- Base Page Container --- */
 .settings-page-container {
     max-width: 1000px;
-    margin: 80px auto 40px; /* Clear Topbar */
+    margin: 80px auto 40px; 
     padding: 20px;
     background-color: var(--white);
     border-radius: 12px;
     box-shadow: var(--shadow);
 }
 
-.settings-main-header {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--text-color);
+/* Header styling */
+.settings-header-wrapper {
+    display: flex;
+    align-items: center;
     margin-bottom: 30px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--border-color);
 }
 
-.settings-layout {
-    display: flex;
-    min-height: 500px;
+.settings-main-header {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0; /* Reset default margin */
 }
 
-/* --- 1. Navigation Panel (Left Column) --- */
+/* 🔑 DESKTOP LAYOUT (Default State) */
+.settings-layout {
+    display: flex; /* Side-by-side layout */
+    min-height: 500px;
+    gap: 30px; 
+}
+
+/* --- 1. Navigation Panel (Desktop Sidebar) --- */
 .settings-nav-panel {
     flex-shrink: 0;
     width: 250px;
     padding-right: 20px;
     border-right: 1px solid var(--border-color);
+    display: flex; 
+    flex-direction: column;
+}
+
+/* Desktop Grouping Styles */
+.settings-nav-group {
+    margin-bottom: 15px; 
+}
+
+.group-header {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--light-text); 
+    padding: 15px 10px 5px; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+    display: block; 
 }
 
 .nav-item {
@@ -52,82 +95,103 @@
     width: 18px;
 }
 
-.nav-item:hover {
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-/* 🔑 TEAL FOCUS: Active Navigation Item */
 .nav-item.active {
     background-color: var(--primary-light);
     color: var(--primary-dark);
     font-weight: 600;
-    /* Optional: Small teal vertical border for emphasis */
     border-left: 4px solid var(--primary-color); 
     padding-left: 6px;
 }
 
-/* Logout Button Special Styling */
 .logout-item {
     margin-top: 20px;
-    color: var(--red); /* Assuming you have a --red variable */
+    color: var(--red);
 }
-.logout-item:hover {
-    background-color: var(--red-light);
-    color: var(--red-dark);
-}
-
 
 /* --- 2. Content Area (Right Column) --- */
 .settings-content-area {
     flex-grow: 1;
-    padding-left: 30px;
-}
-
-.settings-content-placeholder h3 {
-    color: var(--primary-color);
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-.settings-content-placeholder p {
-    color: var(--light-text);
+    padding-left: 0; 
 }
 
 /* ---------------------------------------------- */
-/* 📱 MOBILE RESPONSIVE SECTION */
+/* 📱 MOBILE MEDIA QUERY OVERRIDES (max-width: 768px) - MASTER-DETAIL NAVIGATION */
 /* ---------------------------------------------- */
 @media (max-width: 768px) {
+    /* 1. Page Container Adjustments */
     .settings-page-container {
-        margin-top: 60px; /* Clear Topbar */
+        /* Full width and minimal padding for mobile */
+        margin: 60px auto 0; 
         padding: 10px;
         border-radius: 0;
         box-shadow: none;
+        max-width: 100vw;
     }
     
-    .settings-main-header {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-    
-    .settings-layout {
-        flex-direction: column; /* Stack navigation above content */
+    .settings-header-wrapper {
+        margin-bottom: 15px;
+        padding-bottom: 5px;
     }
 
-    /* 🔑 Mobile Navigation: Hide the sidebar structure */
+    .settings-main-header {
+        font-size: 24px;
+        flex-grow: 1;
+        text-align: center; /* Center header text by default */
+    }
+
+    /* Back Button Styling */
+    .back-button {
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: var(--text-color);
+        cursor: pointer;
+        padding: 5px 10px 5px 0;
+        margin-right: -10px; /* Pull button closer to header */
+    }
+    .mobile-mode .settings-main-header {
+        text-align: left; /* Align header text when back button is present */
+    }
+
+    /* 2. Layout (Only one panel shown at a time) */
+    .settings-layout {
+        flex-direction: column; 
+        gap: 0;
+        min-height: unset;
+    }
+
+    /* 3. Master List View (Full width stack) */
     .settings-nav-panel {
-        display: none; 
         width: 100%;
         padding-right: 0;
         border-right: none;
+        display: block; 
+        
+        /* Ensure items stack vertically cleanly */
+        overflow-x: unset; 
+        white-space: normal;
     }
     
-    /* 🔑 Mobile Content Area: Full width */
+    .settings-nav-group {
+        display: block; 
+        margin-bottom: 5px; 
+    }
+
+    .group-header {
+        display: none; /* Hide groups on mobile */
+    }
+
+    .settings-nav-panel .nav-item {
+        width: 100%; 
+        padding: 12px 10px;
+        margin-bottom: 3px;
+        font-size: 16px; 
+        border-left: none !important;
+    }
+    
+    /* 4. Detail Content View (Full width content) */
     .settings-content-area {
-        padding-left: 0;
         width: 100%;
+        padding: 0 5px; 
     }
-    
-    /* 🔑 Implement Mobile Dropdown (requires JSX update to replace .settings-nav-panel) */
-    /* If you implement a <select> element or a collapsible menu here,
-       it would take full width and show the current section title. */
 }

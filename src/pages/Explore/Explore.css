@@ -1,65 +1,209 @@
+/* ===================================
+   EXPLORE PAGE - MODERN DESIGN
+   =================================== */
+
 .explore-page {
-  background-color: #fafafa;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.explore-container {
+.explore-header {
   display: flex;
   justify-content: space-between;
-  height: calc(100vh - 60px);
-  overflow: hidden;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
 }
 
-.explore-feed {
-  flex: 1;
-  padding: 30px;
-  overflow-y: auto;
+.explore-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
 }
 
-.explore-title {
-  font-size: 24px;
+.explore-tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.explore-tabs button {
+  padding: 10px 24px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 24px;
+  font-size: 15px;
   font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.explore-tabs button:hover {
+  border-color: #008080;
+  color: #008080;
+  transform: translateY(-2px);
+}
+
+.explore-tabs button.active {
+  background: #008080;
+  border-color: #008080;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
+}
+
+/* Grid Layout */
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading State */
+.explore-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e0e0e0;
+  border-top: 4px solid #008080;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
   margin-bottom: 20px;
 }
 
-.explore-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 15px;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.explore-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  cursor: pointer;
+.explore-loading p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
 }
 
-.explore-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+/* Empty State */
+.explore-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  color: #999;
 }
 
-.explore-item:hover img {
-  transform: scale(1.1);
+.empty-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
 }
 
-/* Responsive for mobile */
-@media screen and (max-width: 768px) {
-  .explore-container {
-    flex-direction: column;
+.explore-empty h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.explore-empty p {
+  font-size: 16px;
+  color: #999;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .explore-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .explore-page {
+    padding: 16px;
   }
 
-  .explore-feed {
-    padding: 15px;
+  .explore-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+  }
+
+  .explore-header h2 {
+    font-size: 26px;
+  }
+
+  .explore-tabs {
+    width: 100%;
+  }
+
+  .explore-tabs button {
+    flex: 1;
+    padding: 8px 16px;
+    font-size: 14px;
   }
 
   .explore-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+  }
+
+  .explore-loading,
+  .explore-empty {
+    padding: 60px 20px;
+  }
+
+  .empty-icon {
+    font-size: 60px;
+  }
+
+  .explore-empty h3 {
+    font-size: 20px;
+  }
+
+  .explore-empty p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .explore-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .explore-header h2 {
+    font-size: 22px;
+  }
+
+  .explore-tabs button {
+    font-size: 13px;
+    padding: 6px 12px;
   }
 }
