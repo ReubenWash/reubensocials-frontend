@@ -107,6 +107,7 @@ const Signup = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
+      <div className= "scrollable-container">
 
         <div className="logo" style={{ textAlign: "center", marginBottom: "20px" }}>
           <img src={logo} alt="Rocials logo" style={{ width: "120px" }} />
@@ -225,6 +226,7 @@ const Signup = () => {
         <p className="auth-footer">
           Already have an account? <Link to="/login">Login</Link>
         </p>
+        </div>
       </div>
     </div>
   );

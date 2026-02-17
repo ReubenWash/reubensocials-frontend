@@ -29,6 +29,10 @@
     max-width: 420px;
     box-shadow: var(--shadow);
 }
+.scrollable-container{
+    height: 100vh;
+    overflow-y:auto;
+}
 
 .auth-card h2 {
     text-align: center;

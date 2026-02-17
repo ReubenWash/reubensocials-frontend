@@ -112,7 +112,7 @@ export default function Login() {
         </form>
 
         <footer>
-          <p> &copy; 2025 Rocials, All rights reserved.</p>
+          <p> &copy; 2026 Rocials, All rights reserved.</p>
           <nav>
             <a href="#">Terms of Service</a> <a href="#">Privacy</a>
           </nav>
