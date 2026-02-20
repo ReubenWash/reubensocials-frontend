@@ -27,11 +27,12 @@ export const loginUser = async (credentials) => {
 };
 
 /**
- * Logout user
+ * Logout user - sends refresh token to blacklist it
  */
 export const logoutUser = async () => {
   try {
-    await api.post('/accounts/logout/');
+    const refresh = localStorage.getItem('refresh_token');
+    await api.post('/accounts/logout/', { refresh });
   } catch (error) {
     console.error('Logout error:', error);
   } finally {
@@ -41,21 +42,13 @@ export const logoutUser = async () => {
 };
 
 /**
- * Get current user - FIXED!
+ * Get current user
  */
 export const getCurrentUser = async () => {
   try {
-    const response = await api.get('/accounts/me/'); // ⬅️ CHANGED FROM /profile/ to /me/
-    console.log('✅ getCurrentUser response:', response.data); // Debug
-    
-    // Verify username exists
-    if (!response.data.username) {
-      console.error('⚠️ Username missing from response:', response.data);
-    }
-    
+    const response = await api.get('/accounts/me/');
     return response.data;
   } catch (error) {
-    console.error('❌ getCurrentUser error:', error);
     throw error.response?.data || { detail: 'Failed to fetch user' };
   }
 };
@@ -65,7 +58,7 @@ export const getCurrentUser = async () => {
  */
 export const updateProfile = async (profileData) => {
   try {
-    const response = await api.put('/accounts/profile/', profileData, {
+    const response = await api.patch('/accounts/profile/', profileData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
     return response.data;

@@ -7,44 +7,38 @@ import "./Login.css";
 export default function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "", // Changed from email to username
+    email: "",
     password: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Handle form input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      // Call backend login API
       const data = await loginUser(formData);
 
       console.log("Login successful:", data);
 
-      // Save JWT tokens to localStorage
+      // Save JWT tokens
       localStorage.setItem("access_token", data.access);
       localStorage.setItem("refresh_token", data.refresh);
 
-      // Optional: Save user data if returned
       if (data.user) {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
 
-      // Redirect to main dashboard
       navigate("/home");
     } catch (err) {
       console.error("Login error:", err);
 
-      // Handle different error types
       if (err.detail) {
         setError(err.detail);
       } else if (err.non_field_errors) {
@@ -71,10 +65,10 @@ export default function Login() {
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
+              type="email"
+              name="email"
+              placeholder="Email address"
+              value={formData.email}
               onChange={handleChange}
               required
             />
@@ -112,7 +106,7 @@ export default function Login() {
         </form>
 
         <footer>
-          <p> &copy; 2026 Rocials, All rights reserved.</p>
+          <p>&copy; 2026 Rocials, All rights reserved.</p>
           <nav>
             <a href="#">Terms of Service</a> <a href="#">Privacy</a>
           </nav>
