@@ -1,0 +1,277 @@
+/* ================= ROOT COLORS ================= */
+
+:root {
+  --primary: #008080;
+  --primary-dark: #006666;
+  --bg-light: #f4f8f8;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+}
+
+/* ================= GLOBAL ================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh; /* allows content to expand */
+}
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+  text-align: center;
+  padding: 70px 20px;
+  background: linear-gradient(135deg, #f0f9f9 0%, #e6f3f3 100%);
+}
+
+.hero h1 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 90%;
+  margin: auto;
+}
+
+.hero h1 span {
+  color: var(--primary);
+}
+
+.hero p {
+  margin-top: 18px;
+  font-size: 16px;
+  color: var(--text-light);
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.primary-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.outline-btn {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  padding: 12px 26px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.outline-btn:hover {
+  background: rgba(0,128,128,0.06);
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ================= FEATURES ================= */
+
+.features {
+  padding: 60px 20px;
+  text-align: center;
+  background: var(--bg-light);
+}
+
+.features-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.feature-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  transition: 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 12px 30px rgba(0,128,128,0.12);
+}
+
+.icon {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+/* ================= CTA ================= */
+
+.cta {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.cta p {
+  margin: 20px 0;
+  color: var(--text-light);
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  background: #111827;
+  color: #d1d5db;
+  margin-top: auto;
+}
+
+/* ================================================= */
+/* ================= TABLET (768px+) ================= */
+/* ================================================= */
+
+@media (min-width: 768px) {
+
+  .navbar {
+    padding: 18px 40px;
+  }
+
+  .logo-img {
+    height: 50px;
+  }
+
+  .hero {
+    padding: 90px 20px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    max-width: 700px;
+  }
+
+  .hero p {
+    font-size: 17px;
+    max-width: 600px;
+  }
+
+  .hero-buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ================================================= */
+/* ================= DESKTOP (1024px+) ================= */
+/* ================================================= */
+
+@media (min-width: 1024px) {
+
+  .navbar {
+    padding: 20px 60px;
+  }
+
+  .logo-img {
+    height: 55px;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    max-width: 800px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  .features {
+    padding: 100px 20px;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .feature-card {
+    padding: 35px;
+  }
+}

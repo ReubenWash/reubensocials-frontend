@@ -3,34 +3,34 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
+
 import Login from "./pages/Auth/Login";
 import SignUp from "./pages/Auth/SignUp";
 import Home from "./pages/Home/Home";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
-
 import Settings from "./pages/Settings/Settings";
 import Explore from "./pages/Explore/Explore";
 import Payments from "./pages/Payments/Payments";
 import Search from "./pages/Search/Search";
 import Wallet from "./components/Wallet/Wallet";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"; // import your PrivateRoute
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import SinglePost from "./pages/SinglePost/SinglePost";
+import LandingPage from "./pages/LandingPage/LandingPage";
+
 import "./App.css";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Default route */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Auth routes */}
+        {/* PUBLIC ROUTES */}
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
 
-        {/* Protected routes */}
+        {/* PROTECTED ROUTES */}
         <Route
           path="/home"
           element={
@@ -39,6 +39,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/user/:username"
           element={
@@ -47,7 +48,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        
 
         <Route
           path="/settings"
@@ -57,6 +57,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/wallet"
           element={
@@ -83,6 +84,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/payments"
           element={
@@ -91,6 +93,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/search"
           element={
@@ -100,7 +103,7 @@ const App = () => {
           }
         />
 
-        {/* 404 fallback */}
+        {/* 404 ROUTE */}
         <Route
           path="*"
           element={
@@ -109,6 +112,7 @@ const App = () => {
             </h2>
           }
         />
+
       </Routes>
     </Router>
   );

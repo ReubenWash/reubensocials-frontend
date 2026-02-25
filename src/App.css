@@ -1,19 +1,30 @@
-/* ====== APP LAYOUT STRUCTURE ====== */
+/* ====== GLOBAL RESET ====== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;  /* ✅ allow page scrolling */
+  font-family: 'Inter', sans-serif;
+}
+
+/* ====== APP LAYOUT ====== */
 .app {
   display: flex;
   width: 100%;
-  min-height: 100vh;
-  background-color: var(--background-color);
+  background-color: var(--background-color, #f9fbfb);
 }
 
-/* ====== MAIN CONTENT AREA ====== */
+/* ====== MAIN CONTENT AREA (AUTHENTICATED PAGES) ====== */
 .main-content {
   flex: 1;
   padding: 20px;
-  min-height: 100vh;
-  overflow-y: auto;
 
-  /* Space for sidebar (desktop only) */
+  /* Sidebar space for desktop only */
   margin-left: 250px;
   transition: all 0.3s ease;
 }
@@ -33,10 +44,10 @@
   border-radius: 10px;
 }
 
-/* ====== FIX: SIDEBAR COLLAPSE ON MOBILE ====== */
+/* ====== SIDEBAR COLLAPSE FOR MOBILE ====== */
 @media (max-width: 768px) {
   .main-content {
-    margin-left: 0; /* Sidebar becomes hidden or overlay */
+    margin-left: 0; /* Sidebar hidden on mobile */
     padding: 15px;
   }
 }
