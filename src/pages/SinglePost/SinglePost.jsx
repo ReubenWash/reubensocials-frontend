@@ -101,8 +101,8 @@ const SinglePost = () => {
           <Post
             postId={post.id}
             username={post.author.username}
-            userImg={post.author.profile_picture || "/default-avatar.png"}
-            postImg={post.media_file}
+            userImg={post.author.profile_picture_url || "/default-avatar.png"}
+            postImg={post.media_url}  // Updated
             caption={post.content}
             currentUser={currentUser}
             postCreatorId={post.author.id}

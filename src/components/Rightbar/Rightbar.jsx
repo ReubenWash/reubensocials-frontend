@@ -18,8 +18,10 @@ const Rightbar = ({ currentUser }) => {
 
   const loadSuggestions = async () => {
     try {
-      const users = await discoverUsers();
-      setSuggestedUsers(users.slice(0, 5)); // Show top 5
+      const data = await discoverUsers();
+      // handle both paginated {results:[]} and plain array []
+      const users = data.results || data
+      setSuggestedUsers(Array.isArray(users) ? users.slice(0, 5) : []);
     } catch (err) {
       console.error('Error loading suggestions:', err);
     }
@@ -27,8 +29,10 @@ const Rightbar = ({ currentUser }) => {
 
   const loadTrending = async () => {
     try {
-      const posts = await getTrendingPosts();
-      setTrendingPosts(posts.slice(0, 6)); // Show top 6
+      const data = await getTrendingPosts();
+      // handle both paginated {results:[]} and plain array []
+      const posts = data.results || data
+      setTrendingPosts(Array.isArray(posts) ? posts.slice(0, 6) : []);
     } catch (err) {
       console.error('Error loading trending:', err);
     } finally {
@@ -39,7 +43,6 @@ const Rightbar = ({ currentUser }) => {
   const handleFollow = async (username) => {
     try {
       await toggleFollow(username);
-      // Refresh suggestions
       await loadSuggestions();
     } catch (err) {
       console.error('Error following user:', err);
@@ -52,8 +55,8 @@ const Rightbar = ({ currentUser }) => {
     <div className="main-rightbar">
       {/* Current User Profile */}
       <div className="rightbar-profile">
-        <img 
-          src={currentUser.profile_picture || '/default-avatar.png'} 
+        <img
+          src={currentUser.profile_picture_url || '/default-avatar.png'}
           alt={currentUser.username}
           className="profile-avatar"
         />
@@ -78,8 +81,8 @@ const Rightbar = ({ currentUser }) => {
           <div className="suggestions-list">
             {suggestedUsers.map(user => (
               <div key={user.id} className="suggestion-item">
-                <img 
-                  src={user.profile_picture || '/default-avatar.png'} 
+                <img
+                  src={user.profile_picture_url || '/default-avatar.png'}
                   alt={user.username}
                   onClick={() => window.location.href = `/user/${user.username}`}
                 />
@@ -89,7 +92,7 @@ const Rightbar = ({ currentUser }) => {
                   </h4>
                   <p>{user.followers_count} followers</p>
                 </div>
-                <button 
+                <button
                   onClick={() => handleFollow(user.username)}
                   className={user.is_following ? 'unfollow-btn' : 'follow-btn'}
                 >
@@ -110,13 +113,13 @@ const Rightbar = ({ currentUser }) => {
 
         <div className="trending-grid">
           {trendingPosts.map(post => (
-            <div 
-              key={post.id} 
+            <div
+              key={post.id}
               className="trending-item"
               onClick={() => window.location.href = `/post/${post.id}`}
             >
-              {post.media_file && (
-                <img src={post.media_file} alt="Trending post" />
+              {post.media_url && (
+                <img src={post.media_url} alt="Trending post" />  
               )}
               <div className="trending-overlay">
                 <span>❤️ {post.likes_count}</span>
@@ -142,4 +145,3 @@ const Rightbar = ({ currentUser }) => {
 };
 
 export default Rightbar;
-
